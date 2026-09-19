@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#16A34A" />
+  <title>Admin — 4D Mart</title>
+
+  <link rel="icon" type="image/svg+xml" href="assets/icon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .admin { max-width: 960px; margin: 0 auto; padding: 24px 16px 60px; }
+    .admin__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; gap: 12px; flex-wrap: wrap; }
+    .admin__title { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.02em; display: flex; align-items: center; gap: 10px; }
+    .admin__title i { color: var(--primary); }
+    .admin__card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      padding: 22px;
+      margin-bottom: 22px;
+      box-shadow: var(--shadow-xs);
+    }
+    .admin__card-title {
+      font-size: 0.98rem; font-weight: 800;
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .admin__card-title i { color: var(--primary); }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-grid .full { grid-column: 1 / -1; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field label { font-size: 0.72rem; font-weight: 800; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.05em; }
+    .field input, .field textarea {
+      padding: 11px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-sm);
+      font-family: inherit;
+      font-size: 0.88rem;
+      background: var(--surface);
+      color: var(--text);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .field input:focus, .field textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(22,163,74,0.12);
+    }
+    .field textarea { resize: vertical; min-height: 84px; font-family: inherit; }
+    .form-actions { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+    .tbl-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--r-xl); background: var(--surface); box-shadow: var(--shadow-xs); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+    th { background: var(--gray-50); font-weight: 800; color: var(--text-2); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    tr:last-child td { border-bottom: none; }
+    td.actions { display: flex; gap: 6px; }
+    .btn-sm { padding: 7px 12px; border-radius: var(--r-sm); font-size: 0.72rem; font-weight: 800; display: inline-flex; align-items: center; gap: 5px; transition: all 0.15s; }
+    .btn-sm--edit { background: var(--primary-soft); color: var(--primary); }
+    .btn-sm--edit:hover { background: var(--primary); color: #fff; }
+    .btn-sm--del { background: var(--danger-soft); color: var(--danger); }
+    .btn-sm--del:hover { background: var(--danger); color: #fff; }
+    @media (max-width: 640px) {
+      .form-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body style="padding-bottom: 24px;">
+
+  <div class="admin">
+    <div class="admin__head">
+      <h1 class="admin__title"><i class="fas fa-cog"></i> Admin — 4D Mart</h1>
+      <a href="index.html" class="btn btn--outline">
+        <i class="fas fa-arrow-left"></i> Katalog
+      </a>
+    </div>
+
+    <div class="admin__card">
+      <h2 class="admin__card-title" id="formTitle">
+        <i class="fas fa-plus-circle"></i> Tambah Produk Baru
+      </h2>
+      <form id="form">
+        <input type="hidden" id="editId" />
+        <div class="form-grid">
+          <div class="field">
+            <label>Nama Produk</label>
+            <input id="name" required placeholder="Contoh: Indomie Goreng" />
+          </div>
+          <div class="field">
+            <label>Kategori</label>
+            <input id="category" required placeholder="Makanan / Minuman / dll" />
+          </div>
+          <div class="field">
+            <label>Harga (Rp)</label>
+            <input id="price" type="number" required placeholder="3500" />
+          </div>
+          <div class="field">
+            <label>Stok</label>
+            <input id="stock" type="number" required placeholder="48" />
+          </div>
+          <div class="field full">
+            <label>Link Produk (opsional)</label>
+            <input id="link" placeholder="https://..." />
+          </div>
+          <div class="field full">
+            <label>Deskripsi</label>
+            <textarea id="description" placeholder="Deskripsi produk..."></textarea>
+          </div>
+          <div class="field full">
+            <label>URL Gambar (pisahkan dengan koma, maks 3)</label>
+            <input id="images" placeholder="https://img1.jpg, https://img2.jpg" />
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn--primary">
+            <i class="fas fa-floppy-disk"></i> Simpan
+          </button>
+          <button type="button" class="btn btn--outline" id="resetBtn">
+            <i class="fas fa-rotate"></i> Reset
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <h2 class="admin__card-title" style="margin-bottom:12px;padding-left:4px;">
+      <i class="fas fa-list"></i> Daftar Produk
+    </h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Nama</th><th>Kategori</th><th>Harga</th><th>Status</th><th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" hidden>
+    <i class="fas fa-circle-check"></i>
+    <span id="toastMsg"></span>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

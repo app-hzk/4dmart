@@ -1,0 +1,27 @@
+{
+  "name": "4D Mart — Warung Serba Ada",
+  "short_name": "4D Mart",
+  "description": "Katalog produk warung 4D Mart. Pesan mudah via WhatsApp.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F9FAFB",
+  "theme_color": "#16A34A",
+  "lang": "id",
+  "categories": ["shopping", "food"],
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
